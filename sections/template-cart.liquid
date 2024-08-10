@@ -1,0 +1,113 @@
+<div class="max-w-screen-lg mx-auto my-10">
+  {% if cart.item_count > 0 %}
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-3xl font-semibold">Your Cart</h2>
+      <a href="{{ routes.all_products_collection_url }}" class="text-blue-700 underline"> Continue Shopping </a>
+    </div>
+    <div class="cart-data flex flex-col my-10 mx-auto">
+      <form action="{{ routes.cart_url }}" method="POST" novalidate>
+        <table class="w-full table-auto divide-y-2 divide-gray-200">
+          <thead class="">
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Product Price</th>
+          </thead>
+
+          <tbody>
+            {% for item in cart.items %}
+              <tr class="table-row">
+                <td class="flex flex-col justify-between">
+                  <a class="" href="item-url">
+                    {% if item.image %}
+                      <img
+                        class="w-20 h-20 object-cover border"
+                        src="{{ item.image | img_url: 'small' }}"
+                        alt="{{ item.title | escape }}"
+                        width=""
+                        height=""
+                      >
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 object-cover border' }}
+                    {% endif %}
+                  </a>
+                </td>
+
+                <td class="flex flex-col justify-between">
+                  <a class="" href="{{ item.url }}">
+                    {{ item.product.title | truncate: '10' }}
+                  </a>
+                </td>
+
+                <td class="flex flex-col justify-between">
+                  <span class="text-gray-500 text-sm font-light my-1 inline-block">{{ item.variant.title }}</span>
+                </td>
+
+                <td class="flex flex-col justify-between">
+                  <a
+                    class="text-blue-700 text-sm font-light my-1 inline-block"
+                    href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0"
+                    >remove</a
+                  >
+                </td>
+
+                <td class="py-4 px-2 text-center">
+                  <input
+                    type="number"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="1"
+                    id="updates_{{ forloop.index }}"
+                    class="border w-20 p-2 mx-auto text-center"
+                  >
+                </td>
+
+                <td class="py-4 px-2 flex flex-col items-center justify-center">
+                  {{ item.line_price | money }}
+                </td>
+              </tr>
+
+              <script>
+                console.log({{ item | json }})
+              </script>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="flex flex-col w-full justify-center items-end gap-y-2">
+          <div class="total_price font-semibold">
+            Total Price: {{ cart.total_price | money }}
+          </div>
+          <div class="update_btn">
+            <button
+              type="submit"
+              name="updatepppp"
+              class="bg-gray-700 border text-white px-8 py-3 w-80 font-medium hover:bg-white hover:text-gray-800"
+            >
+              Update Cart
+            </button>
+          </div>
+          <div class="checkout_btn">
+            <button
+              type="submit"
+              name="checkout"
+              class="bg-gray-700 border text-white px-8 py-3 w-80 font-medium"
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  {% else %}
+    <div class="flex justify-center items-center h-screen">
+      <div class="text-center">
+        <h1 class="text-2xl font-semibold text-center mb-2 w-80">Your Cart is Empty</h1>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="bg-gray-700 px-8 py-3 font-medium text-white text-center inline-block mx-auto"
+          >Continue Shopping</a
+        >
+      </div>
+    </div>
+  {% endif %}
+</div>

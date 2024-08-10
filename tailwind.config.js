@@ -7,7 +7,11 @@ module.exports = {
     './templates/**/*.liquid',
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'h-94': '22rem'
+      }
+    },
   },
   plugins: [],
 }

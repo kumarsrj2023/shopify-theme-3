@@ -1,0 +1,42 @@
+<div class="max-w-screen-lg mx-auto">
+  <div class="text-center font-bold capitalize text-3xl mb-4">
+    <h2>{{ section.settings.featured_collection_title }}</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+    {% for product in section.settings.featured_collection.products limit: section.settings.item_per_page %}
+      {% render 'product-card', product: product %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Title",
+      "default": "Featured Collection",
+      "id": "featured_collection_title"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "collection"
+    },
+    {
+      "type": "range",
+      "id": "item_per_page",
+      "label": "Item Per Page",
+      "default": 4,
+      "min": 1,
+      "max": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

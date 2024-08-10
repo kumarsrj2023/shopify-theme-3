@@ -1,0 +1,48 @@
+<div class="max-w-screen-lg mx-auto">
+  <div class="title mb-5">
+    <h2 class="text-3xl font-semibold capitalize text-center">{{ section.settings.section_title }}</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    {% for collection in collections %}
+      {% if collection.handle != 'frontpage' %}
+        <div class="collection-wrapper shadow-lg border">
+          {% if collection.featured_image != blank %}
+            {% assign collection_image = collection.featured_image %}
+          {% else %}
+            {% assign collection_image = collection.products.first.image %}
+          {% endif %}
+
+          <a class="" href="{{ collection.url }}">
+            <div class="h-60">
+              <img
+                class="object-cover w-full h-full"
+                src="{{ collection_image| img_url: 'medium' }}"
+                width=""
+                height=""
+              >
+            </div>
+            <p class="bg-gray-300 py-3 px-3 text-base font-medium">{{ collection.title }}</p>
+          </a>
+        </div>
+
+        <script>
+          console.log({{collection|json}})
+        </script>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "default": "Collection List",
+      "label": "Section Title"
+    }
+  ]
+}
+{% endschema %}
