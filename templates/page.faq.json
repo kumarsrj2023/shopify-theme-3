@@ -1,0 +1,17 @@
+{
+    "sections": {
+        "template": {
+            "type": "template-page-faq",
+
+            "blocks": {
+                "faq_item": {
+                    "type": "faq"
+                },
+            },
+            "block_order": [
+                "faq_item",
+            ]
+        },
+    },
+    "order": ["template"]
+}

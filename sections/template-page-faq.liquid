@@ -1,0 +1,40 @@
+<div class="faq-section">
+    {% for block in section.blocks %}
+        {% if block.type == 'faq' %}
+            <div class="faq-item my-3">
+                <div class="faq-question">
+                    <strong>{{ block.settings.question }}</strong>
+                </div>
+                <div class="faq-answer">
+                    {{ block.settings.answer }}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "FAQ Template",
+  "settings": [],
+  "blocks": [
+    {
+      "name": "Faq Items",
+      "type": "faq",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "placeholder": "Please enter the question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    },
+  ]
+}
+{% endschema %}

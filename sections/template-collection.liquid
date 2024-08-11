@@ -1,1 +1,32 @@
-Hello 
+<div class="max-w-screen-lg mx-auto my-10">
+    {% paginate collection.products by section.settings.item_per_page %}
+      <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
+        {% for product in collection.products %}
+          {% render 'product-card', product: product %}
+        {% else %}
+          <p class="font-semibold">No Product</p>
+        {% endfor %}
+      </div>
+  
+      <div class="mt-10 text-center">
+        {% render 'pagination', pagination: paginate %}
+      </div>
+    {% endpaginate %}
+  </div>
+  
+  {% schema %}
+  {
+    "name": "Collections Template",
+    "settings": [
+      {
+        "type": "range",
+        "label": "Item Per Page",
+        "id": "item_per_page",
+        "default": 3,
+        "min": 1,
+        "max": 20
+      }
+    ]
+  }
+  {% endschema %}
+  
