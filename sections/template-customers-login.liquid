@@ -1,1 +1,78 @@
-login page
+<div x-data="{toggleForm: false}" class="py-10 bg-gray-100" id="loginPage">
+  <div x-show="toggleForm == false" class="login-section max-w-screen-sm mx-auto bg-white rounded-2xl px-4 py-10">
+    <h1 class="text-center mb-5 text-3xl font-semibold text-gray-700">Login Here</h1>
+
+    {% form 'customer_login' %}
+      <div class="form-fields max-w-96 mx-auto">
+
+        {% if form.errors %}
+          <div class="py-3 mb-5 bg-gray-200 rounded p-3">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="email mb-3">
+          <label for="email" class="text-base font-medium pb-2 inline-block w-full">Email</label>
+          <input
+            class="inline-block w-full py-3 text-base border rounded px-3 outline-none"
+            type="email"
+            name="customer[email]"
+          >
+        </div>
+
+        <div class="password mb-3">
+          <label for="password" class="text-base font-medium pb-2 inline-block w-full">Password</label>
+          <input
+            class="inline-block w-full py-3 text-base border rounded px-3 outline-none"
+            type="password"
+            name="customer[password]"
+            autocomplete="current-password"
+          >
+        </div>
+
+        <div class="submit">
+          <input
+            class="border cursor-pointer bg-gray-900 text-white hover:bg-white hover:text-gray-900 w-full inline-block font-medium py-3 px-6 transition-all duration-300"
+            type="submit"
+            value="Sign in"
+          >
+            <button @click.prevent="toggleForm = true" class="text-blue-700 w-full hover:bg-gray-300 rounded py-3 font-medium mt-3">Forget Password</button>
+        </div>
+      </div>
+    {% endform %}
+  </div>
+
+  <div x-show="toggleForm == true" class="login-section max-w-screen-sm mx-auto bg-white rounded-2xl px-4 py-10">
+    <h1 class="text-center mb-5 text-3xl font-semibold text-gray-700">Recover Your Password</h1>
+
+    {% form 'recover_customer_password' %}
+      <div class="form-fields max-w-96 mx-auto">
+
+        {% if form.errors %}
+          <div class="py-3 mb-5 bg-gray-200 rounded p-3">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="email mb-3">
+          <label for="email" class="text-base font-medium pb-2 inline-block w-full">Email</label>
+          <input
+            class="inline-block w-full py-3 text-base border rounded px-3 outline-none"
+            type="email"
+            name="email"
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="submit">
+          <input
+            class="border cursor-pointer bg-gray-900 text-white hover:bg-white hover:text-gray-900 w-full inline-block font-medium py-3 px-6 transition-all duration-300"
+            type="submit"
+            value="Submit"
+          >
+            <button class="text-blue-700 w-full hover:bg-gray-300 rounded py-3 font-medium mt-3">Forget Password</button>
+        </div>
+      </div>
+    {% endform %}
+  </div>
+</div>
